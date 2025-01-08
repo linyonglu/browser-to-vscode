@@ -1,0 +1,45 @@
+{
+  "name": "code-inspector",
+  "version": "0.0.1",
+  "repository": "git@github.com:zh-lx/code-inspector.git",
+  "author": "zh-lx <18366276315@163.com>",
+  "license": "MIT",
+  "homepage": "https://inspector.fe-dev.cn/en",
+  "description": "Click the dom on the page, it will open your IDE and position the cursor to the source code location of the dom.",
+  "keywords": [
+    "webpack",
+    "vite",
+    "plugin",
+    "vue",
+    "vscode",
+    "inspector",
+    "inspect"
+  ],
+  "bugs": {
+    "url": "https://github.com/zh-lx/code-inspector/issues"
+  },
+  "scripts": {
+    "test": "vitest run --coverage",
+    "build": "pnpm --filter \"./packages/*\" run build",
+    "build:docs": "pnpm --filter \"./docs/*\" run docs:build && node ./scripts/zip",
+    "pub": "pnpm --filter \"./packages/*\" run pub",
+    "pub:beta": "pnpm --filter \"./packages/*\" run pub:beta --no-git-checks",
+    "version:major": "node ./scripts/version major",
+    "version:minor": "node ./scripts/version minor",
+    "version:patch": "node ./scripts/version patch",
+    "version:prod": "node ./scripts/version prod",
+    "version:beta": "node ./scripts/version beta"
+  },
+  "private": true,
+  "main": "index.js",
+  "devDependencies": {
+    "@vitest/coverage-v8": "2.1.4",
+    "fs-extra": "^10.0.0",
+    "husky": "^8.0.3",
+    "jsdom": "^25.0.1",
+    "launch-ide": "1.0.1",
+    "rimraf": "^5.0.5",
+    "vitest": "^2.1.4",
+    "zip-a-folder": "^3.1.7"
+  }
+}
