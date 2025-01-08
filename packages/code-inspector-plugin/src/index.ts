@@ -18,6 +18,10 @@ export interface CodeInspectorPluginOptions extends CodeOptions {
    * @en When set the value to true, only if the .env.local file exists and it contains CODE_INSPECTOR=true, the plugin takes effect; The default value is false
    */
   needEnvInspector?: boolean;
+  /**
+   * @zh 是否是子项目，默认是false
+   */
+  isSubProject?: boolean;
 }
 
 export function CodeInspectorPlugin(options: CodeInspectorPluginOptions): any {
@@ -72,4 +76,4 @@ export function CodeInspectorPlugin(options: CodeInspectorPluginOptions): any {
   }
 }
 
-export const codeInspectorPlugin = CodeInspectorPlugin;
+export const browserToVscode = CodeInspectorPlugin;

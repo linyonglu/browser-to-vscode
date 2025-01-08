@@ -39,9 +39,9 @@ export function createServer(
     // 收到请求唤醒vscode
     const params = new URLSearchParams(req.url.slice(1));
     let file = decodeURIComponent(params.get('file') as string);
-    if (ProjectRootPath && !path.isAbsolute(file)) {
-      file = `${ProjectRootPath}/${file}`;
-    }
+    // if (ProjectRootPath && !path.isAbsolute(file)) {
+    //   file = `${ProjectRootPath}/${file}`;
+    // }
     const line = Number(params.get('line'));
     const column = Number(params.get('column'));
     res.writeHead(200, {

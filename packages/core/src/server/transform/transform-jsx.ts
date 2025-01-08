@@ -1,4 +1,5 @@
 import MagicString from 'magic-string';
+import { execSync } from 'child_process';
 import { PathName, EscapeTags, isEscapeTags } from '../../shared';
 import { getRelativePath } from '../server';
 import vueJsxPlugin from '@vue/babel-plugin-jsx';
@@ -26,6 +27,20 @@ export function transformJsx(content: string, filePath: string, escapeTags: Esca
     ],
   });
 
+  // 获取项目 git 根目录
+  function getProjectRoot(): string {
+    try {
+      const command = 'git rev-parse --show-toplevel';
+      const gitRoot = execSync(command, {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      }).trim();
+      return gitRoot;
+    } catch (error) {
+      return '';
+    }
+  }
+
   traverse(ast!, {
     enter({ node }: any) {
       const nodeName = node?.openingElement?.name?.name || '';
@@ -48,9 +63,8 @@ export function transformJsx(content: string, filePath: string, escapeTags: Esca
         const insertPosition =
           node.openingElement.end - (node.openingElement.selfClosing ? 2 : 1);
         const { line, column } = node.loc.start;
-        const addition = ` ${PathName}="${getRelativePath(filePath)}:${line}:${
-          column + 1
-        }:${nodeName}"${node.openingElement.attributes.length ? ' ' : ''}`;
+        const addition = ` ${PathName}="${getProjectRoot()}/${getRelativePath(filePath)}:${line}:${column + 1
+          }:${nodeName}"${node.openingElement.attributes.length ? ' ' : ''}`;
 
         s.prependLeft(insertPosition, addition);
       }

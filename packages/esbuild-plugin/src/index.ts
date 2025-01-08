@@ -100,6 +100,11 @@ export function EsbuildCodeInspectorPlugin(options: Options) {
             cache.set(filePath, result);
           }
 
+          // 子项目资源变化时，重新刷新页面
+          if (result.originCode !== originCode && options.isSubProject) {
+            location.reload();
+          }
+
           return result.output;
         }
       );
